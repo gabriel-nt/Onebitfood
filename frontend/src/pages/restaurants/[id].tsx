@@ -6,17 +6,22 @@ import { Col, Card, Row, Spinner, Alert } from 'react-bootstrap';
 import Product from '../../components/Product';
 import { getRestaurant } from '../../services/getRestaurant';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { useState } from 'react';
+import AddProductModal from '../../components/AddProductModal';
+import { ProductProps, RestaurantProps } from '../../dtos';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 
-const DetailsRestaurant = () => {
+interface DetailsRestaurantProps {
+  isError: boolean;
+  restaurant: RestaurantProps;
+}
+
+const DetailsRestaurant = ({ restaurant, isError }: DetailsRestaurantProps) => {
   const router = useRouter();
-  const { id } = router.query;
-  const { restaurant, isError, isLoading } = getRestaurant(id);
+  const [productSelected, setProductSelected] = useState<ProductProps>(null);
 
   if (isError)
     return <Alert variant='custom-red'>Erro ao carregar</Alert>
-
-  if (isLoading)
-    return <Spinner animation='border' />
 
   return (
     <>
@@ -58,13 +63,63 @@ const DetailsRestaurant = () => {
           <h5 className='fw-bold'>{product_category.title}</h5>
           <Row>
             {product_category.products.map((product, i) =>
-              <Product {...product}/>
+              <Product {...product} onClick={() => setProductSelected(product)} />
             )}
           </Row>
+          <AddProductModal
+            show={productSelected != null}
+            onHide={() => setProductSelected(null)}
+            product={productSelected}
+            restaurant={restaurant}
+          />
         </>
       ))}
     </>
   )
+}
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { id } = context.query;
+
+//   try {
+//     const response = await fetch(`${process.env.apiUrl}/api/restaurants/${id}`);
+//     const restaurant = await response.json();
+//     const isError = response.ok ? false : true;
+
+//     return {
+//       props: {
+//         restaurant,
+//         isError
+//       }
+//     }
+//   } catch (error) {
+//     return {
+//       props: {
+//         isError: error
+//       }
+//     }
+//   }
+// }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(`${process.env.apiUrl}/api/restaurants`);
+  const restaurants = await res.json();
+
+  const paths = restaurants.map((restaurant) => ({
+    params: { id: restaurant.id.toString() }
+  }))
+
+  return { paths, fallback: false }
+}
+
+export const getStaticProps: GetStaticProps= async ({ params }) => {
+  const res = await fetch(`${process.env.apiUrl}/api/restaurants/${params.id}`);
+  const restaurant = await res.json();
+  
+  return {
+    props: { restaurant },
+    revalidate: 120
+  }
 }
 
 export default DetailsRestaurant;

@@ -1,14 +1,18 @@
 import Image from 'next/image';
 import { Col, Row, Card } from 'react-bootstrap';
-import { ProductProps } from '../../dtos';
 
+import { ProductProps } from '../../dtos';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatString } from '../../utils/formatString';
 
-const Product = ({ id, name, description, image_url,price }: ProductProps) => {
+interface ProductComponentProps extends ProductProps {
+  onClick: () => void;
+}
+
+const Product = ({ id, name, description, image_url, price, onClick }: ProductComponentProps) => {
   return (
-    <Col md={4} sm={12} key={id}>
-      <Card className="mb-4 clickable-effect">
+    <Col md={6} sm={12} key={id}>
+      <Card className="mb-4 clickable-effect" onClick={onClick}>
         <Row className="my-3 mx-1">
           <Col md={6} xs={{ span: 12, order: 2 }}>
             <p className='fw-bold mb-0'>{name}</p>

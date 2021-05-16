@@ -4,6 +4,7 @@ export interface ProductProps {
   description: string;
   price: number;
   image_url: string;
+  quantity: string;
 }
 
 export interface ProductCategoriesProps {
@@ -43,4 +44,23 @@ export interface GetCategoriesProps {
   categories: CategoryProps[];
   isErrorCategories: string;
   isLoadingCategories: boolean;
+}
+
+export interface GetAvailableCitiesProps {
+  cities: string[];
+  isError: string;
+  isLoading: boolean;
+}
+
+export interface AddressProps {
+  city: string;
+  neighborhood: string;
+  street: string;
+  number: string;
+  complement: string;
+}
+
+export interface CartRecoilProps {
+  restaurant: RestaurantProps;
+  products: ProductProps[];
 }
