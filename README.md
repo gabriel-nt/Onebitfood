@@ -9,7 +9,8 @@
 <p align="center">Aplicação desenvolvida durante evento do Onebitcode</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/react%20version-17.0.2-informational"/>
+  <img src="https://img.shields.io/badge/next%20version-10.2.0-important"/>
+  <img src="https://img.shields.io/badge/rails%20version-6.1.3-ff0043"/>
   <img src="https://img.shields.io/badge/last%20commit-may-blue" />
   <img src="https://img.shields.io/badge/license-MIT-success"/>
 </p>
@@ -41,7 +42,7 @@ O OneBitFood é uma aplicação de delivery de comida para realização de pedid
 
 ### ✅ Demonstração
 
-<img src="https://github.com/gabriel-nt/Dsvendas/blob/master/frontend/src/assets/img/dashboard.png" /> 
+<img src="https://github.com/gabriel-nt/Onebitfood/blob/master/frontend/public/restaurants.png" /> 
 
 ### ⚙ Pré-requisitos
 
