@@ -10,7 +10,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/next%20version-10.2.0-important"/>
-  <img src="https://img.shields.io/badge/rails%20version-6.1.3-ff0043"/>
+  <img src="https://img.shields.io/badge/rails%20version-6.1.3-701516"/>
   <img src="https://img.shields.io/badge/last%20commit-may-blue" />
   <img src="https://img.shields.io/badge/license-MIT-success"/>
 </p>
